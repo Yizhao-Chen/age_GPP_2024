@@ -1,0 +1,30 @@
+library(ggplot2)
+library(ggpubr)
+b_data = read.csv('...Fig4/Fig4_b.csv')
+b_data$AgeGroup <- as.factor(b_data$AgeGroup)
+b_data$variable = factor(b_data$variable,levels = c('Amax','LAI','LN'))
+stat_wilcox.test = read.csv('...Fig4/xy_positions.csv')
+
+Fig4_b_box <- ggboxplot(b_data, x = 'AgeGroup', y = 'value', fill = 'variable', 
+                        color = 'gray30', width = 0.6, size = 1, legend = 'right', alpha = 0.6, linewidth = 0.5) +
+  scale_fill_manual(values = c('#00A087B2', '#3C5488B2', '#DC0000B2'), 
+                    labels = c(expression(A[max]), expression(LAI[max]), expression(LN[]))) +  # 根据实际变量更新标签
+  labs(x = 'Stand Age (years)', y = 'Normalized Index', fill = 'Variable') + 
+  scale_y_continuous(limits = c(-0.19, 1.23), breaks = seq(0, 1, by = 0.5)) + 
+  theme_bw() +
+  stat_pvalue_manual(
+    stat_wilcox.test, label = "p.adj.signif", hide.ns = TRUE, tip.length = 0, 
+    size = 10) + 
+  scale_x_discrete(labels = c('<60', '60~150', '>150')) +  # 自定义 X 轴标签
+  theme(
+    axis.text = element_text(size = 18, color = "black"),
+    axis.title.x = element_text(size = 18, color = "black"),
+    axis.title.y = element_text(size = 18),
+    legend.text = element_text(size = 13, face = "bold"),
+    panel.border = element_rect(fill = NA, color = "black", size = 2, linetype = "solid"),
+    plot.title = element_text(hjust = 0.5, size = 18),
+    legend.position = c(0.5, 0.1),
+    legend.direction = "horizontal",
+    legend.title = element_blank())
+plot(Fig4_b_box)
+ggsave('...Fig4/Fig4_b.png', Fig4_b_box, width = 4, height = 4, dpi = 300)

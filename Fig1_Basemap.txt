@@ -1,0 +1,48 @@
+data_analyse= read.csv('...Fig1/Sample_11_1yrs.csv')
+data_analyse2= read.csv('...Fig1/Sample_12_1yrs.csv')
+data_analyse3= read.csv('...Fig1/Sample_13_1yrs.csv')
+data_analyse4= read.csv('...Fig1/Sample_14_1yrs.csv')
+
+point_analyese= read.csv('...Fig1/point_11.csv')
+point_analyese2= read.csv('...Fig1/point_12.csv')
+point_analyese3= read.csv('...Fig1/point_13.csv')
+point_analyese4= read.csv('...Fig1/point_14.csv')
+
+p1 <- ggplot() + 
+  geom_point(data = point_analyese,aes(x=Age,y= GPP),color = "#00798c",alpha = 1,size = 4)+
+  geom_point(data = point_analyese2,aes(x=Age,y= GPP),color = "#66a182",alpha = 1,size = 4)+
+  geom_point(data = point_analyese3,aes(x=Age,y= GPP),color = "#edae49",alpha = 1,size = 4)+
+  geom_point(data = point_analyese4,aes(x=Age,y= GPP),color = "#d1495b",alpha = 1,size = 4)+
+  geom_ribbon(data = data_analyse,aes(x=Age_Group,ymin= lower_fun,ymax= upper_fun),fill = "#00798c",alpha = 0.2, size = 2)+
+  geom_ribbon(data = data_analyse2,aes(x=Age_Group,ymin= lower_fun,ymax= upper_fun),fill = "#66a182",alpha = 0.2, size = 2)+
+  geom_ribbon(data = data_analyse3,aes(x=Age_Group,ymin= lower_fun,ymax= upper_fun),fill = "#edae49",alpha = 0.2, size = 2)+
+  geom_ribbon(data = data_analyse4,aes(x=Age_Group,ymin= lower_fun,ymax= upper_fun),fill = "#d1495b",alpha = 0.2, size = 2)+
+  geom_line(data = data_analyse, aes(x = Age_Group, y = fun1, color = 'a', linetype = 'aa'), alpha = 0.6, size = 1.25) +
+  geom_line(data = data_analyse2, aes(x = Age_Group, y = fun1, color = 'b', linetype = 'bb'), alpha = 0.6, size = 1.25) +
+  geom_line(data = data_analyse3, aes(x = Age_Group, y = fun1, color = 'c', linetype = 'cc'), alpha = 0.6, size = 1.25) +
+  geom_line(data = data_analyse4, aes(x = Age_Group, y = fun1, color = 'd', linetype = 'dd'), alpha = 1, size = 1.4) +
+  scale_x_continuous(limits = c(0, 230), breaks = c(0, 50, 100, 150)) +
+  coord_cartesian(ylim = c(650,2000))+  
+  theme_bw() +
+  labs(
+    x = expression("Stand Age(years)"),
+    y = expression("GPP (gC" %.% m^-2 %.% yr^-1 * ")"),
+    colour = ""
+  ) +
+  scale_colour_manual(name = "", values = c("a"="#00798c","b"="#66a182","c"="#edae49","d"="#d1495b"), labels = c(expression("EBF"),expression("DBF"),expression("ENF"),expression("DNF")))+
+  scale_linetype_manual(values = c("solid", "solid", "solid", "solid"), guide = "none") +
+  theme(
+    axis.text = element_text(size = 18),
+    axis.text.x = element_text(size = 18),
+    axis.text.y = element_text(size = 18),
+    axis.title.x = element_text(size = 18),
+    axis.title.y = element_text(size = 18),
+    panel.border = element_rect(fill = NA, color = "black", size = 2, linetype = "solid"),
+    plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16),
+    legend.position = c(0.32, 0.06),
+    legend.direction = "horizontal"
+  )
+p1
+ggsave('...Fig1/Basemap.png', p222, width = 11.6, height = 6, dpi = 300)

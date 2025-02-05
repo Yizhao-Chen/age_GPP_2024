@@ -1,0 +1,30 @@
+titles <- c("a.EBF", "b.DBF", "c.ENF", "d.DNF")
+for (i in 11:14){
+  data_analyse = read.csv(paste0('...Fig5/Age_CH_GPP_',i,'.csv'))
+  data_analyse <- data_analyse[which(data_analyse$sample > 10), ]
+  data_analyse <- data_analyse[which(data_analyse$Age_Group >= 10), ]
+  base_scatterplot <- data_analyse %>% 
+    ggplot(aes(x = CH, y = GPP, colour = Age_Group)) +
+    geom_linerange(aes(x = CH, ymin = GPP-GPP_ci, ymax = GPP+GPP_ci, color = Age_Group), linetype = 'solid',alpha = 0.2) +
+    geom_linerange(aes(y = GPP, xmin = CH-CH_ci, xmax = CH+CH_ci, color = Age_Group), linetype = 'solid',alpha = 0.2) +
+    geom_point(size = 2) +
+    scale_color_gradientn (colors = viridis::inferno(10),
+                           limits = c(10, 160),
+                           name = "Age Group")+
+    scale_x_continuous( breaks = c(11,15,19)) +
+    labs(
+      x = expression('Canopy Height (m)'),#Leaf Nitrogen Leaf Phosphorus(%) Soil CP
+      y = expression("GPP (gC" %.% m^-2 %.% yr^-1 * ")"),
+      colour = 'Age'
+    ) +
+    #coord_cartesian(xlim = c(0.151,0.1654))+ 
+    theme(axis.text = element_text(face = "bold", size = 20),
+          axis.text.x = element_text(face = "bold", size = 20),
+          axis.text.y = element_text(face = "bold", size = 20),
+          axis.title.x = element_text(face = "bold", size = 20),
+          axis.title.y = element_text(face = "bold", size = 20),
+          legend.title = element_text(size = 16, face = "bold"),
+          legend.text = element_text(size = 12, face = "bold"),
+          legend.position = 'none')
+  ggsave(paste0('...Fig5/CH_GPP-Age-',i,'.png'), base_scatterplot, width = 6, height = 6, dpi = 300)
+}

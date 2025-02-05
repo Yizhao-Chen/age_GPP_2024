@@ -1,0 +1,39 @@
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(ggsignif)
+library(scales)
+library(ggpubr)
+library(rstatix)
+
+site_input = read.csv("...Fig4/Site_Dataset.csv")
+site_input <- site_input[which(site_input$Age >= 10), ]
+site_input$AgeGroup <- cut(site_input$Age, 
+                           breaks = c(0,60,150,500), 
+                           labels = c('a','b','c'), 
+                           include.lowest = TRUE, 
+                           right = FALSE)
+site_input1 <- data.frame(Amax = site_input$Amax,
+                          LN = site_input$LN,
+                          LAI = site_input$LAI,
+                          AgeGroup = site_input$AgeGroup)
+#zl =   data.frame(Amax = 0,
+#                  LN = 0,
+#                  LAI = 0,
+#                  AgeGroup =  0)
+#site_input1 = rbind(zl,site_input1)
+site_input1 <- site_input1 %>%
+  mutate(Amax = rescale(Amax),
+         LN = rescale(LN),
+         LAI = rescale(LAI))
+site_input1 <- site_input1[which(site_input1$Age != 0), ]
+site_input1_long <- site_input1 %>%
+  pivot_longer(cols = c(Amax, LN, LAI), 
+               names_to = "variable", 
+               values_to = "value")
+site_input1_long<- site_input1_long %>% filter(!is.na(value))
+site_input1_long$AgeGroup <- as.factor(site_input1_long$AgeGroup)
+stat_wilcox <- wilcox_test(group_by(site_input1_long, variable), value~AgeGroup)  
+
+write.csv(site_input1_long,'...Fig4/Fig4_b.csv',row.names = F)
+write.csv(stat_wilcox,'...Fig4/xy_positions.csv',row.names = F)

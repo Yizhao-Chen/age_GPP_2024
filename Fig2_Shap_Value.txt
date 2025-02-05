@@ -1,0 +1,63 @@
+library("ranger")
+library("iml")
+library("fastshap")
+library("ggplot2")
+library("dplyr")
+input_df = read.csv("...Fig2/EBF-60.csv")#EBF DBF ENF DNF
+df_nutrients = data.frame(input_df$LN,input_df$LP,input_df$STN,
+                          input_df$STP,input_df$SCN,input_df$SCP)
+
+# Function to apply PCA and return principal components
+apply_pca <- function(data, n_components = 6) {
+  pca <- prcomp(data, scale. = TRUE)
+  principal_components <- data.frame(pca$x[, 1:n_components])
+  explained_variance <- summary(pca)$importance[2, 1:n_components]
+  list(principal_components = principal_components, explained_variance = explained_variance)
+}
+pca_nutrients <- apply_pca(df_nutrients)
+pca_nutrients_14 <- pca_nutrients$principal_components[,1:4]
+input_df_pca <- cbind(input_df,pca_nutrients_14)
+input_rf_cleaned1 = input_df_pca
+input_rf_cleaned1 = input_rf_cleaned1[,c(1,2,4,14:17)]#GPP
+#input_rf_cleaned1 = input_rf_cleaned1[,c(1,3,4,14:17)]#Chl
+#input_rf_cleaned1 = input_rf_cleaned1[,c(1,8,4,14:17)]#LAI
+#colnames(input_rf_cleaned1)[2] = 'Chl'
+#colnames(input_rf_cleaned1)[2] = 'LAI'
+colnames(input_rf_cleaned1)[3] = 'CH'
+input_rf_cleaned1$CH_Age = input_rf_cleaned1$CH * input_rf_cleaned1$Age
+input_rf_cleaned1$PC1_Age = input_rf_cleaned1$PC1 * input_rf_cleaned1$Age
+input_rf_cleaned1$PC2_Age = input_rf_cleaned1$PC2 * input_rf_cleaned1$Age
+input_rf_cleaned1$PC3_Age = input_rf_cleaned1$PC3 * input_rf_cleaned1$Age
+input_rf_cleaned1$PC4_Age = input_rf_cleaned1$PC4 * input_rf_cleaned1$Age
+
+rf_model <- ranger(GPP ~ ., 
+                   #data = input_rf_cleaned1,importance = 'impurity')
+#rf_model <- ranger(Chl ~ ., 
+                   #data = input_rf_cleaned1,importance = 'impurity')
+#rf_model <- ranger(LAI ~ ., 
+                   data = input_rf_cleaned1,importance = 'impurity')
+
+# Prepare the data and response variable
+X <- input_rf_cleaned1[, -2]  # Exclude the target variable
+y <- input_rf_cleaned1$GPP  # Target variable
+#y <- input_rf_cleaned1$Chl  # Target variable
+#y <- input_rf_cleaned1$LAI
+
+# Prediction wrapper function for regression
+predict_function_reg <- function(object, newdata) {
+  predict(object, data = newdata)$predictions
+}
+
+#predictor <- Predictor$new(rf_model, data = X, y = y, predict.fun = predict_function)
+# Compute SHAP values for the first 50 instances
+shap_values <- fastshap::explain(
+  object = rf_model,       # Trained model
+  X = X,           # Data subset (first 50 rows)
+  pred_wrapper = predict_function_reg,  # Prediction wrapper
+  nsim = 1                # Number of simulations (higher = more accurate, slower)
+)
+# Convert SHAP values matrix/array to data frame
+shap_values_df <- as.data.frame(shap_values)
+feature_importance_interactions <- shap_values_df %>%
+  summarise(across(c(CH_Age, PC1_Age, PC2_Age,PC3_Age,PC4_Age), ~ mean(abs(.))))
+print(feature_importance_interactions)

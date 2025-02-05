@@ -1,0 +1,484 @@
+data_analyse= read.csv('...Fig3/EBF_10yrs.csv')
+data_analyse2= read.csv('...Fig3/DBF_10yrs.csv')
+data_analyse3= read.csv('...Fig3/ENF_10yrs.csv')
+data_analyse4= read.csv('...Fig3/DNF_10yrs.csv')
+#ci
+#SCN
+{
+  se <- data_analyse$SCN_sd / sqrt(data_analyse$sample)
+  alpha <- 0.05 
+  df <- data_analyse$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse$SCN_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse$SCN)
+  data_analyse$SCN_ci_Normalized <- (data_analyse$SCN_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse2$SCN_sd / sqrt(data_analyse2$sample)
+  alpha <- 0.05 
+  df <- data_analyse2$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse2$SCN_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse2$SCN)
+  data_analyse2$SCN_ci_Normalized <- (data_analyse2$SCN_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse3$SCN_sd / sqrt(data_analyse3$sample)
+  alpha <- 0.05 
+  df <- data_analyse3$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse3$SCN_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse3$SCN)
+  data_analyse3$SCN_ci_Normalized <- (data_analyse3$SCN_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse4$SCN_sd / sqrt(data_analyse4$sample)
+  alpha <- 0.05 
+  df <- data_analyse4$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse4$SCN_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse4$SCN)
+  data_analyse4$SCN_ci_Normalized <- (data_analyse4$SCN_ci - min_val) / (max_val - min_val)
+}
+#SCP
+{
+  se <- data_analyse$SCP_sd / sqrt(data_analyse$sample)
+  alpha <- 0.05 
+  df <- data_analyse$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse$SCP_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse$SCP)
+  data_analyse$SCP_ci_Normalized <- (data_analyse$SCP_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse2$SCP_sd / sqrt(data_analyse2$sample)
+  alpha <- 0.05 
+  df <- data_analyse2$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse2$SCP_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse2$SCP)
+  data_analyse2$SCP_ci_Normalized <- (data_analyse2$SCP_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse3$SCP_sd / sqrt(data_analyse3$sample)
+  alpha <- 0.05 
+  df <- data_analyse3$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse3$SCP_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse3$SCP)
+  data_analyse3$SCP_ci_Normalized <- (data_analyse3$SCP_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse4$SCP_sd / sqrt(data_analyse4$sample)
+  alpha <- 0.05 
+  df <- data_analyse4$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse4$SCP_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse4$SCP)
+  data_analyse4$SCP_ci_Normalized <- (data_analyse4$SCP_ci - min_val) / (max_val - min_val)
+}
+#LN
+{
+  se <- data_analyse$LN_sd / sqrt(data_analyse$sample)
+  alpha <- 0.05 
+  df <- data_analyse$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse$LN_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse$LN)
+  data_analyse$LN_ci_Normalized <- (data_analyse$LN_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse2$LN_sd / sqrt(data_analyse2$sample)
+  alpha <- 0.05 
+  df <- data_analyse2$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse2$LN_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse2$LN)
+  data_analyse2$LN_ci_Normalized <- (data_analyse2$LN_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse3$LN_sd / sqrt(data_analyse3$sample)
+  alpha <- 0.05 
+  df <- data_analyse3$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse3$LN_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse3$LN)
+  data_analyse3$LN_ci_Normalized <- (data_analyse3$LN_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse4$LN_sd / sqrt(data_analyse4$sample)
+  alpha <- 0.05 
+  df <- data_analyse4$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse4$LN_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse4$LN)
+  data_analyse4$LN_ci_Normalized <- (data_analyse4$LN_ci - min_val) / (max_val - min_val)
+}
+#LP
+{
+  se <- data_analyse$LP_sd / sqrt(data_analyse$sample)
+  alpha <- 0.05 
+  df <- data_analyse$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse$LP_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse$LP)
+  data_analyse$LP_ci_Normalized <- (data_analyse$LP_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse2$LP_sd / sqrt(data_analyse2$sample)
+  alpha <- 0.05 
+  df <- data_analyse2$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse2$LP_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse2$LP)
+  data_analyse2$LP_ci_Normalized <- (data_analyse2$LP_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse3$LP_sd / sqrt(data_analyse3$sample)
+  alpha <- 0.05 
+  df <- data_analyse3$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse3$LP_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse3$LP)
+  data_analyse3$LP_ci_Normalized <- (data_analyse3$LP_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse4$LP_sd / sqrt(data_analyse4$sample)
+  alpha <- 0.05 
+  df <- data_analyse4$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse4$LP_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse4$LP)
+  data_analyse4$LP_ci_Normalized <- (data_analyse4$LP_ci - min_val) / (max_val - min_val)
+}
+#STN
+{
+  se <- data_analyse$STN_sd / sqrt(data_analyse$sample)
+  alpha <- 0.05 
+  df <- data_analyse$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse$STN_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse$STN)
+  data_analyse$STN_ci_Normalized <- (data_analyse$STN_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse2$STN_sd / sqrt(data_analyse2$sample)
+  alpha <- 0.05 
+  df <- data_analyse2$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse2$STN_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse2$STN)
+  data_analyse2$STN_ci_Normalized <- (data_analyse2$STN_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse3$STN_sd / sqrt(data_analyse3$sample)
+  alpha <- 0.05 
+  df <- data_analyse3$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse3$STN_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse3$STN)
+  data_analyse3$STN_ci_Normalized <- (data_analyse3$STN_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse4$STN_sd / sqrt(data_analyse4$sample)
+  alpha <- 0.05 
+  df <- data_analyse4$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse4$STN_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse4$STN)
+  data_analyse4$STN_ci_Normalized <- (data_analyse4$STN_ci - min_val) / (max_val - min_val)
+}
+#STP
+{
+  se <- data_analyse$STP_sd / sqrt(data_analyse$sample)
+  alpha <- 0.05 
+  df <- data_analyse$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse$STP_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse$STP)
+  data_analyse$STP_ci_Normalized <- (data_analyse$STP_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse2$STP_sd / sqrt(data_analyse2$sample)
+  alpha <- 0.05 
+  df <- data_analyse2$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse2$STP_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse2$STP)
+  data_analyse2$STP_ci_Normalized <- (data_analyse2$STP_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse3$STP_sd / sqrt(data_analyse3$sample)
+  alpha <- 0.05 
+  df <- data_analyse3$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse3$STP_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse3$STP)
+  data_analyse3$STP_ci_Normalized <- (data_analyse3$STP_ci - min_val) / (max_val - min_val)
+  
+  se <- data_analyse4$STP_sd / sqrt(data_analyse4$sample)
+  alpha <- 0.05 
+  df <- data_analyse4$sample-1
+  t_value <- qt(1 - alpha/2, df) 
+  data_analyse4$STP_ci = t_value * se
+  # 进行归一化处理 ci
+  min_val <- 0
+  max_val <- max(data_analyse4$STP)
+  data_analyse4$STP_ci_Normalized <- (data_analyse4$STP_ci - min_val) / (max_val - min_val)
+}
+
+p111 <- ggplot() + 
+  geom_line(data = data_analyse, aes(x = Age_Group, y = SCN, color = 'a', linetype = 'aa'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse2, aes(x = Age_Group, y = SCN, color = 'b', linetype = 'bb'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse3, aes(x = Age_Group, y = SCN, color = 'c', linetype = 'cc'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse4, aes(x = Age_Group, y = SCN, color = 'd', linetype = 'dd'), alpha = 1, size = 0.4) +
+  geom_errorbar(data = data_analyse, aes(x = Age_Group, ymin = SCN - SCN_ci, ymax = SCN + SCN_ci, color = 'a'), width = 0.2) +
+  geom_errorbar(data = data_analyse2, aes(x = Age_Group, ymin = SCN - SCN_ci, ymax = SCN + SCN_ci, color = 'b'), width = 0.2) +
+  geom_errorbar(data = data_analyse3, aes(x = Age_Group, ymin = SCN - SCN_ci, ymax = SCN + SCN_ci, color = 'c'), width = 0.2) +
+  geom_errorbar(data = data_analyse4, aes(x = Age_Group, ymin = SCN - SCN_ci, ymax = SCN + SCN_ci, color = 'd'), width = 0.2) +
+  geom_point(data = data_analyse, aes(x = Age_Group, y = SCN, color = 'a'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse2, aes(x = Age_Group, y = SCN, color = 'b'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse3, aes(x = Age_Group, y = SCN, color = 'c'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse4, aes(x = Age_Group, y = SCN, color = 'd' ), alpha = 1, size = 2.4) +
+  scale_x_continuous(limits = c(0, 190), breaks = c(0, 50, 100, 150,200)) +
+  theme_bw() +
+  labs(
+    x = expression("Stand Age(years)"),
+    y = expression('SCN'),
+    colour = ""
+  ) +
+  scale_colour_manual(name = "", values = c("a"="#00798c","b"="#66a182","c"="#edae49","d"="#d1495b"), labels = c(expression("EBF"),expression("DBF"),expression("ENF"),expression("DNF")))+
+  scale_linetype_manual(values = c("solid", "solid", "solid", "solid"), guide = "none") +
+  theme(
+    axis.text = element_text(size = 18),
+    axis.text.x = element_text(size = 18),
+    axis.text.y = element_text(size = 18),
+    axis.title.x = element_text(size = 18),
+    axis.title.y = element_text(size = 18),
+    panel.border = element_rect(fill = NA, color = "black", size = 2, linetype = "solid"),
+    plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16),
+    legend.position = 'none'
+  )
+p111
+ggsave('...Fig3/SCN.png', p111, width = 6, height = 3, dpi = 300)
+
+p222 <- ggplot() + 
+  geom_line(data = data_analyse, aes(x = Age_Group, y = SCP, color = 'a', linetype = 'aa'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse2, aes(x = Age_Group, y = SCP, color = 'b', linetype = 'bb'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse3, aes(x = Age_Group, y = SCP, color = 'c', linetype = 'cc'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse4, aes(x = Age_Group, y = SCP, color = 'd', linetype = 'dd'), alpha = 1, size = 0.4) +
+  geom_errorbar(data = data_analyse, aes(x = Age_Group, ymin = SCP - SCP_ci, ymax = SCP + SCP_ci, color = 'a'), width = 0.2) +
+  geom_errorbar(data = data_analyse2, aes(x = Age_Group, ymin = SCP - SCP_ci, ymax = SCP + SCP_ci, color = 'b'), width = 0.2) +
+  geom_errorbar(data = data_analyse3, aes(x = Age_Group, ymin = SCP - SCP_ci, ymax = SCP + SCP_ci, color = 'c'), width = 0.2) +
+  geom_errorbar(data = data_analyse4, aes(x = Age_Group, ymin = SCP - SCP_ci, ymax = SCP + SCP_ci, color = 'd'), width = 0.2) +
+  geom_point(data = data_analyse, aes(x = Age_Group, y = SCP, color = 'a'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse2, aes(x = Age_Group, y = SCP, color = 'b'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse3, aes(x = Age_Group, y = SCP, color = 'c'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse4, aes(x = Age_Group, y = SCP, color = 'd' ), alpha = 1, size = 2.4) +
+  scale_x_continuous(limits = c(0, 190), breaks = c(0, 50, 100, 150,200)) +
+  theme_bw() +
+  labs(
+    x = expression("Stand Age(years)"),
+    y = expression('SCP'),
+    colour = ""
+  ) +
+  scale_colour_manual(name = "", values = c("a"="#00798c","b"="#66a182","c"="#edae49","d"="#d1495b"), labels = c(expression("EBF"),expression("DBF"),expression("ENF"),expression("DNF")))+
+  scale_linetype_manual(values = c("solid", "solid", "solid", "solid"), guide = "none") +
+  theme(
+    axis.text = element_text(size = 18),
+    axis.text.x = element_text(size = 18),
+    axis.text.y = element_text(size = 18),
+    axis.title.x = element_text(size = 18),
+    axis.title.y = element_text(size = 18),
+    panel.border = element_rect(fill = NA, color = "black", size = 2, linetype = "solid"),
+    plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16),
+    legend.position = 'none'
+  )
+
+p222
+ggsave('...Fig3/SCP.png', p222, width = 6, height = 3, dpi = 300)
+
+p333 <- ggplot() +
+  geom_line(data = data_analyse, aes(x = Age_Group, y = LN, color = 'a', linetype = 'aa'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse2, aes(x = Age_Group, y = LN, color = 'b', linetype = 'bb'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse3, aes(x = Age_Group, y = LN, color = 'c', linetype = 'cc'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse4, aes(x = Age_Group, y = LN, color = 'd', linetype = 'dd'), alpha = 1, size = 0.4) +
+  geom_errorbar(data = data_analyse, aes(x = Age_Group, ymin = LN - LN_ci, ymax = LN + LN_ci, color = 'a'), width = 0.2) +
+  geom_errorbar(data = data_analyse2, aes(x = Age_Group, ymin = LN - LN_ci, ymax = LN + LN_ci, color = 'b'), width = 0.2) +
+  geom_errorbar(data = data_analyse3, aes(x = Age_Group, ymin = LN - LN_ci, ymax = LN + LN_ci, color = 'c'), width = 0.2) +
+  geom_errorbar(data = data_analyse4, aes(x = Age_Group, ymin = LN - LN_ci, ymax = LN + LN_ci, color = 'd'), width = 0.2) +
+  geom_point(data = data_analyse, aes(x = Age_Group, y = LN, color = 'a'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse2, aes(x = Age_Group, y = LN, color = 'b'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse3, aes(x = Age_Group, y = LN, color = 'c'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse4, aes(x = Age_Group, y = LN, color = 'd' ), alpha = 1, size = 2.4) +
+  scale_x_continuous(limits = c(0, 190), breaks = c(0, 50, 100, 150,200)) +
+  theme_bw() +
+  labs(
+    x = expression("Stand Age(years)"),
+    y = expression('LN(%)'),
+    colour = ""
+  ) +
+  scale_colour_manual(name = "", values = c("a"="#00798c","b"="#66a182","c"="#edae49","d"="#d1495b"), labels = c(expression("EBF"),expression("DBF"),expression("ENF"),expression("DNF")))+
+  scale_linetype_manual(values = c("solid", "solid", "solid", "solid"), guide = "none") +
+
+  theme(
+    axis.text = element_text(size = 18),
+    axis.text.x = element_text(size = 18),
+    axis.text.y = element_text(size = 18),
+    axis.title.x = element_text(size = 18),
+    axis.title.y = element_text(size = 18),
+    panel.border = element_rect(fill = NA, color = "black", size = 2, linetype = "solid"),
+    plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16),
+    legend.position = 'none'
+  )
+
+p333
+ggsave('...Fig3/LN.png', p333, width = 6, height = 3, dpi = 300)
+
+p444 <- ggplot() +
+  geom_line(data = data_analyse, aes(x = Age_Group, y = LP, color = 'a', linetype = 'aa'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse2, aes(x = Age_Group, y = LP, color = 'b', linetype = 'bb'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse3, aes(x = Age_Group, y = LP, color = 'c', linetype = 'cc'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse4, aes(x = Age_Group, y = LP, color = 'd', linetype = 'dd'), alpha = 1, size = 0.4) +
+  geom_errorbar(data = data_analyse, aes(x = Age_Group, ymin = LP - LP_ci, ymax = LP + LP_ci, color = 'a'), width = 0.2) +
+  geom_errorbar(data = data_analyse2, aes(x = Age_Group, ymin = LP - LP_ci, ymax = LP + LP_ci, color = 'b'), width = 0.2) +
+  geom_errorbar(data = data_analyse3, aes(x = Age_Group, ymin = LP - LP_ci, ymax = LP + LP_ci, color = 'c'), width = 0.2) +
+  geom_errorbar(data = data_analyse4, aes(x = Age_Group, ymin = LP - LP_ci, ymax = LP + LP_ci, color = 'd'), width = 0.2) +
+  geom_point(data = data_analyse, aes(x = Age_Group, y = LP, color = 'a'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse2, aes(x = Age_Group, y = LP, color = 'b'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse3, aes(x = Age_Group, y = LP, color = 'c'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse4, aes(x = Age_Group, y = LP, color = 'd' ), alpha = 1, size = 2.4) +
+  scale_x_continuous(limits = c(0, 190), breaks = c(0, 50, 100, 150,200)) +
+
+  theme_bw() +
+  labs(
+    x = expression("Stand Age(years)"),
+    y = expression('LP(%)'),
+    colour = ""
+  ) +
+  scale_colour_manual(name = "", values = c("a"="#00798c","b"="#66a182","c"="#edae49","d"="#d1495b"), labels = c(expression("EBF"),expression("DBF"),expression("ENF"),expression("DNF")))+
+  scale_linetype_manual(values = c("solid", "solid", "solid", "solid"), guide = "none") +
+  theme(
+    axis.text = element_text(size = 18),
+    axis.text.x = element_text(size = 18),
+    axis.text.y = element_text(size = 18),
+    axis.title.x = element_text(size = 18),
+    axis.title.y = element_text(size = 18),
+    panel.border = element_rect(fill = NA, color = "black", size = 2, linetype = "solid"),
+    plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16),
+    legend.position = 'none'
+  )
+p444
+ggsave('...Fig3/LP.png', p444, width = 6, height = 3, dpi = 300)
+
+p555 <- ggplot() + 
+  geom_line(data = data_analyse, aes(x = Age_Group, y = STN, color = 'a', linetype = 'aa'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse2, aes(x = Age_Group, y = STN, color = 'b', linetype = 'bb'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse3, aes(x = Age_Group, y = STN, color = 'c', linetype = 'cc'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse4, aes(x = Age_Group, y = STN, color = 'd', linetype = 'dd'), alpha = 1, size = 0.4) +
+  geom_errorbar(data = data_analyse, aes(x = Age_Group, ymin = STN - STN_ci, ymax = STN + STN_ci, color = 'a'), width = 0.2) +
+  geom_errorbar(data = data_analyse2, aes(x = Age_Group, ymin = STN - STN_ci, ymax = STN + STN_ci, color = 'b'), width = 0.2) +
+  geom_errorbar(data = data_analyse3, aes(x = Age_Group, ymin = STN - STN_ci, ymax = STN + STN_ci, color = 'c'), width = 0.2) +
+  geom_errorbar(data = data_analyse4, aes(x = Age_Group, ymin = STN - STN_ci, ymax = STN + STN_ci, color = 'd'), width = 0.2) +
+  geom_point(data = data_analyse, aes(x = Age_Group, y = STN, color = 'a'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse2, aes(x = Age_Group, y = STN, color = 'b'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse3, aes(x = Age_Group, y = STN, color = 'c'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse4, aes(x = Age_Group, y = STN, color = 'd' ), alpha = 1, size = 2.4) +
+  
+  scale_x_continuous(limits = c(0, 190), breaks = c(0, 50, 100, 150,200)) +
+  theme_bw() +
+  labs(
+    x = expression("Stand Age(years)"),
+    y = expression('STN(g/kg)'),
+    colour = ""
+  ) +
+  scale_colour_manual(name = "", values = c("a"="#00798c","b"="#66a182","c"="#edae49","d"="#d1495b"), labels = c(expression("EBF"),expression("DBF"),expression("ENF"),expression("DNF")))+
+  scale_linetype_manual(values = c("solid", "solid", "solid", "solid"), guide = "none") +
+  theme(
+    axis.text = element_text(size = 18),
+    axis.text.x = element_text(size = 18),
+    axis.text.y = element_text(size = 18),
+    axis.title.x = element_text(size = 18),
+    axis.title.y = element_text(size = 18),
+    panel.border = element_rect(fill = NA, color = "black", size = 2, linetype = "solid"),
+    plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16),
+    legend.position = 'none'
+  )
+p555
+ggsave('...Fig3/STN.png', p555, width = 6, height = 3, dpi = 300)
+
+p666 <- ggplot() + 
+  geom_line(data = data_analyse, aes(x = Age_Group, y = STP, color = 'a', linetype = 'aa'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse2, aes(x = Age_Group, y = STP, color = 'b', linetype = 'bb'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse3, aes(x = Age_Group, y = STP, color = 'c', linetype = 'cc'), alpha = 0.6, size = 0.4) +
+  geom_line(data = data_analyse4, aes(x = Age_Group, y = STP, color = 'd', linetype = 'dd'), alpha = 1, size = 0.4) +
+  geom_errorbar(data = data_analyse, aes(x = Age_Group, ymin = STP - STP_ci, ymax = STP + STP_ci, color = 'a'), width = 0.2) +
+  geom_errorbar(data = data_analyse2, aes(x = Age_Group, ymin = STP - STP_ci, ymax = STP + STP_ci, color = 'b'), width = 0.2) +
+  geom_errorbar(data = data_analyse3, aes(x = Age_Group, ymin = STP - STP_ci, ymax = STP + STP_ci, color = 'c'), width = 0.2) +
+  geom_errorbar(data = data_analyse4, aes(x = Age_Group, ymin = STP - STP_ci, ymax = STP + STP_ci, color = 'd'), width = 0.2) +
+  geom_point(data = data_analyse, aes(x = Age_Group, y = STP, color = 'a'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse2, aes(x = Age_Group, y = STP, color = 'b'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse3, aes(x = Age_Group, y = STP, color = 'c'), alpha = 1, size = 2.4) +
+  geom_point(data = data_analyse4, aes(x = Age_Group, y = STP, color = 'd' ), alpha = 1, size = 2.4) +
+  scale_x_continuous(limits = c(0, 190), breaks = c(0, 50, 100, 150,200)) +
+  theme_bw() +
+  labs(
+    x = expression("Stand Age(years)"),
+    y = expression('STP(g/kg)'),
+    colour = ""
+  ) +
+  scale_colour_manual(name = "", values = c("a"="#00798c","b"="#66a182","c"="#edae49","d"="#d1495b"), labels = c(expression("EBF"),expression("DBF"),expression("ENF"),expression("DNF")))+
+  scale_linetype_manual(values = c("solid", "solid", "solid", "solid"), guide = "none") +
+  theme(
+    axis.text = element_text(size = 18),
+    axis.text.x = element_text(size = 18),
+    axis.text.y = element_text(size = 18),
+    axis.title.x = element_text(size = 18),
+    axis.title.y = element_text(size = 18),
+    panel.border = element_rect(fill = NA, color = "black", size = 2, linetype = "solid"),
+    plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16),
+    legend.position = 'none'
+  )
+p666
+ggsave('...Fig3/STP.png', p666, width = 6, height = 3, dpi = 300)

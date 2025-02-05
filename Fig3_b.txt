@@ -1,0 +1,118 @@
+library(dplyr)
+library(ppcor)
+library(reshape2)
+
+EBF_test = read.csv("...Fig3/EBF_1yrs.csv")#EBF DBF ENF DNF
+EBF_test1 = subset(EBF_test, Age_Group >= 60)
+EBF_test2 = subset(EBF_test1,sample > 10)
+{
+  #GPP
+  EBF_GPP_SCN_pcor1 = pcor.test(EBF_test2$GPP,EBF_test2$SCN,c(EBF_test2$SCP,EBF_test2$Age_Group))
+  EBF_GPP_SCP_pcor1 = pcor.test(EBF_test2$GPP,EBF_test2$SCP,c(EBF_test2$SCN,EBF_test2$Age_Group))
+  EBF_GPP_LN_pcor1 = pcor.test(EBF_test2$GPP,EBF_test2$LN,c(EBF_test2$LP,EBF_test2$Age_Group))
+  EBF_GPP_LP_pcor1 = pcor.test(EBF_test2$GPP,EBF_test2$LP,c(EBF_test2$LN,EBF_test2$Age_Group))
+  EBF_GPP_STN_pcor1 = pcor.test(EBF_test2$GPP,EBF_test2$STN,c(EBF_test2$STP,EBF_test2$Age_Group))
+  EBF_GPP_STP_pcor1 = pcor.test(EBF_test2$GPP,EBF_test2$STP,c(EBF_test2$STN,EBF_test2$Age_Group))
+  
+  #LAI_MAX
+  EBF_LAI_SCN_pcor1 = pcor.test(EBF_test2$LAI_MAX,EBF_test2$SCN,c(EBF_test2$SCP,EBF_test2$Age_Group))
+  EBF_LAI_SCP_pcor1 = pcor.test(EBF_test2$LAI_MAX,EBF_test2$SCP,c(EBF_test2$SCN,EBF_test2$Age_Group))
+  EBF_LAI_LN_pcor1 = pcor.test(EBF_test2$LAI_MAX,EBF_test2$LN,c(EBF_test2$LP,EBF_test2$Age_Group))
+  EBF_LAI_LP_pcor1 = pcor.test(EBF_test2$LAI_MAX,EBF_test2$LP,c(EBF_test2$LN,EBF_test2$Age_Group))
+  EBF_LAI_STN_pcor1 = pcor.test(EBF_test2$LAI_MAX,EBF_test2$STN,c(EBF_test2$STP,EBF_test2$Age_Group))
+  EBF_LAI_STP_pcor1 = pcor.test(EBF_test2$LAI_MAX,EBF_test2$STP,c(EBF_test2$STN,EBF_test2$Age_Group))
+  
+  #Chl
+  EBF_CH_SCN_pcor1 = pcor.test(EBF_test2$CH,EBF_test2$SCN,c(EBF_test2$SCP,EBF_test2$Age_Group))
+  EBF_CH_SCP_pcor1 = pcor.test(EBF_test2$CH,EBF_test2$SCP,c(EBF_test2$SCN,EBF_test2$Age_Group))
+  EBF_CH_LN_pcor1 = pcor.test(EBF_test2$CH,EBF_test2$LN,c(EBF_test2$LP,EBF_test2$Age_Group))
+  EBF_CH_LP_pcor1 = pcor.test(EBF_test2$CH,EBF_test2$LP,c(EBF_test2$LN,EBF_test2$Age_Group))
+  EBF_CH_STN_pcor1 = pcor.test(EBF_test2$CH,EBF_test2$STN,c(EBF_test2$STP,EBF_test2$Age_Group))
+  EBF_CH_STP_pcor1 = pcor.test(EBF_test2$CH,EBF_test2$STP,c(EBF_test2$STN,EBF_test2$Age_Group))
+  
+  #data grouping
+  EBF_pcor_matrix = matrix(nrow = 6, ncol =3)
+  colnames(EBF_pcor_matrix) = c("GPP","LAI","Chl")
+  rownames(EBF_pcor_matrix) = c("LN","LP","SCN","SCP","STN","STP")
+  EBF_pcor_matrix[1,1] = EBF_GPP_LN_pcor1[[1]]
+  EBF_pcor_matrix[2,1] = EBF_GPP_LP_pcor1[[1]]
+  EBF_pcor_matrix[3,1] = EBF_GPP_SCN_pcor1[[1]]
+  EBF_pcor_matrix[4,1] = EBF_GPP_SCP_pcor1[[1]]
+  EBF_pcor_matrix[5,1] = EBF_GPP_STN_pcor1[[1]]
+  EBF_pcor_matrix[6,1] = EBF_GPP_STP_pcor1[[1]]
+  EBF_pcor_matrix[1,2] = EBF_LAI_LN_pcor1[[1]]
+  EBF_pcor_matrix[2,2] = EBF_LAI_LP_pcor1[[1]]
+  EBF_pcor_matrix[3,2] = EBF_LAI_SCN_pcor1[[1]]
+  EBF_pcor_matrix[4,2] = EBF_LAI_SCP_pcor1[[1]]
+  EBF_pcor_matrix[5,2] = EBF_LAI_STN_pcor1[[1]]
+  EBF_pcor_matrix[6,2] = EBF_LAI_STP_pcor1[[1]]
+  EBF_pcor_matrix[1,3] = EBF_CH_LN_pcor1[[1]]
+  EBF_pcor_matrix[2,3] = EBF_CH_LP_pcor1[[1]]
+  EBF_pcor_matrix[3,3] = EBF_CH_SCN_pcor1[[1]]
+  EBF_pcor_matrix[4,3] = EBF_CH_SCP_pcor1[[1]]
+  EBF_pcor_matrix[5,3] = EBF_CH_STN_pcor1[[1]]
+  EBF_pcor_matrix[6,3] = EBF_CH_STP_pcor1[[1]]
+  
+  pcor_melted <- melt(EBF_pcor_matrix)
+  colnames(pcor_melted) <- c("Dependent", "Independent", "PartialCorrelation") 
+}
+{
+  #data grouping
+  significance_matrix = matrix(nrow = 6, ncol =3)
+  colnames(significance_matrix) = c("GPP","LAI","Chl")
+  rownames(significance_matrix) = c("LN","LP","SCN","SCP","STN","STP")
+  significance_matrix[1,1] = EBF_GPP_LN_pcor1[[2]]
+  significance_matrix[2,1] = EBF_GPP_LP_pcor1[[2]]
+  significance_matrix[3,1] = EBF_GPP_SCN_pcor1[[2]]
+  significance_matrix[4,1] = EBF_GPP_SCP_pcor1[[2]]
+  significance_matrix[5,1] = EBF_GPP_STN_pcor1[[2]]
+  significance_matrix[6,1] = EBF_GPP_STP_pcor1[[2]]
+  significance_matrix[1,2] = EBF_LAI_LN_pcor1[[2]]
+  significance_matrix[2,2] = EBF_LAI_LP_pcor1[[2]]
+  significance_matrix[3,2] = EBF_LAI_SCN_pcor1[[2]]
+  significance_matrix[4,2] = EBF_LAI_SCP_pcor1[[2]]
+  significance_matrix[5,2] = EBF_LAI_STN_pcor1[[2]]
+  significance_matrix[6,2] = EBF_LAI_STP_pcor1[[2]]
+  significance_matrix[1,3] = EBF_CH_LN_pcor1[[2]]
+  significance_matrix[2,3] = EBF_CH_LP_pcor1[[2]]
+  significance_matrix[3,3] = EBF_CH_SCN_pcor1[[2]]
+  significance_matrix[4,3] = EBF_CH_SCP_pcor1[[2]]
+  significance_matrix[5,3] = EBF_CH_STN_pcor1[[2]]
+  significance_matrix[6,3] = EBF_CH_STP_pcor1[[2]]
+  sig_melted <- melt(significance_matrix)
+  colnames(sig_melted) <- c("Dependent", "Independent", "p_value")
+  
+  merged_data <- merge(pcor_melted, sig_melted, by = c("Dependent", "Independent"))
+  
+  merged_data$significance <- cut(merged_data$p_value,
+                                  breaks = c(-Inf, 0.001, 0.01, 0.05, 1),
+                                  labels = c("***", "**", "*", ""),
+                                  include.lowest = TRUE
+  )
+  
+}
+
+merged_data$PartialCorrelation2 = merged_data$PartialCorrelation
+merged_data <- merged_data %>%
+  mutate(PartialCorrelation2 = ifelse(significance == "", NA, PartialCorrelation2))
+merged_data <- merged_data %>%
+  mutate(Independent = factor(Independent, levels = c("LAI", "Chl", "GPP")))
+
+ppp1 <- ggplot(merged_data, aes(x = Dependent, y = Independent, fill = PartialCorrelation)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "#4575b4",  
+                       mid = "#ffffff",  
+                       high = "#d73027", , midpoint = 0, limit = c(-1, 1), space = "Lab", name="Partial\nCorrelation") +
+  geom_text(aes(label = ifelse(is.na(PartialCorrelation2), "", paste0(sprintf("%.2f", PartialCorrelation2), "\n", significance))), 
+            size = 3.8) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, size = 12),
+        axis.text.y = element_text(size = 12),  
+        legend.position = 'none') +
+  labs(title = "", x = "", y = "")+
+  scale_y_discrete(labels = c("LAI" = expression("LAI"["max"]),
+                              "Chl" = "Chl", 
+                              "GPP" = "GPP")) 
+
+print(ppp1)
+ggsave('....Fig3/EBF.png', ppp1, width = 6, height = 3, dpi = 300)

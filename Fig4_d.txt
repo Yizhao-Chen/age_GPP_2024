@@ -1,0 +1,45 @@
+library(dplyr)
+library(ggplot2)
+data_analyse = read.csv('...Fig4/Grid_LSN_1yrs.csv')
+data_analyse2 = read.csv('...Fig4/Site_Dataset.csv')
+data_analyse2$LSN = data_analyse2$LN/data_analyse2$STN
+data_analyse2 = data_analyse2[which(data_analyse2$Age >= 10),]
+data_analyse2 <- data_analyse2 %>%
+  filter(!is.na(LSN))
+# Normalized
+min_val <- min(data_analyse$LSN)
+max_val <- max(data_analyse$LSN)
+data_analyse$LSN_Normalized <- (data_analyse$LSN - min_val) / (max_val - min_val)
+data_analyse$LSN_ci_Normalized = (data_analyse$LSN_ci*data_analyse$LSN_Normalized)/data_analyse$LSN
+
+min_val <- min(data_analyse2$LSN)
+max_val <- max(data_analyse2$LSN)
+data_analyse2$LSN_Normalized <- (data_analyse2$LSN - min_val) / (max_val - min_val)
+
+ppp1 <- ggplot() +
+  geom_point(data = data_analyse2, aes(x = Age, y = LSN_Normalized, fill = "a"), size = 3) +
+  geom_line(data = data_analyse, aes(x = Age_Group, y = LSN_Normalized, color = "b"), size = 1.3, linetype = 'solid', alpha = 0.6) +
+  geom_ribbon(data = data_analyse, aes(x = Age_Group, ymin = LSN_Normalized - LSN_ci_Normalized, ymax = LSN_Normalized + LSN_ci_Normalized), 
+              fill = "#7FFFD4", alpha = 0.2) +
+  labs(
+    x = expression("Stand Age(years)"),
+    y = expression("Normalized LSN")
+  ) + 
+  theme_bw() + 
+  scale_color_manual(name = "", values = c("b" = "#7FFFD4"), labels = c( expression("Grid")))+
+  scale_fill_manual(name = "", values = c("a" = "black"), labels = c(expression("Site")))+
+  scale_y_continuous(breaks =  c(0,0.5,1)) +
+  theme(
+    axis.text = element_text(size = 18, color = "black"),
+    axis.title.x = element_text(size = 18),
+    axis.title.y = element_text(size = 18),
+    legend.title = element_blank(),
+    legend.text = element_text(size = 14),
+    panel.border = element_rect(fill = NA, color = "black", size = 2, linetype = "solid"),
+    plot.title = element_text(hjust = 0.5, size = 18),
+    legend.position = c(0.94, 0.8),   
+    legend.justification = c(1, 1),  
+    legend.spacing = unit(0.0001, "cm")  
+  )
+ppp1
+ggsave('...Fig4/Fig_4_d.png', ppp1, width = 4, height = 4, dpi = 300)

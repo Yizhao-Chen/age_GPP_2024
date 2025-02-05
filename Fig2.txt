@@ -1,0 +1,42 @@
+df <- read.csv('.../Shap_GPP.csv') 
+df$V7 <- rowSums(df[, 2:6])
+df$CH = (df$CH/df$V7)*100
+df$PC1= (df$PC1/df$V7)*100
+df$PC2= (df$PC2/df$V7)*100
+df$PC3= (df$PC3/df$V7)*100
+df$PC4= (df$PC4/df$V7)*100
+df = df[,-7]
+df[,c(2:6)] <- df[,c(2:6)] - 10
+df$PFT <- factor(df$PFT, levels = c("EBF", "DBF", "ENF", "DNF"))
+a = ggradar(df,
+            font.radar = "sans",
+            values.radar = c("10", "15", "30"),
+            grid.min = 0,
+            grid.mid = 5,#10
+            grid.max = 20,#24
+            group.line.width = 1,#line width of group
+            group.point.size = 5,#point size of group
+            #group.colours =RColorBrewer::brewer.pal(4,'Pastel2'),#组别颜色
+            group.colours = c("#00798c","#66a182","#edae49","#d1495b"),
+            background.circle.colour = 'white',#雷达图背景颜色
+            gridline.min.linetype = "longdash",#中间线条类型，#twodash,longdash,dotted,dashed,solid,blank
+            gridline.mid.linetype = "longdash",
+            gridline.max.linetype = "longdash",
+            fill = FALSE,
+            fill.alpha = 0.1,
+            gridline.mid.colour = 'black',#最里圈网格线颜色
+            gridline.min.colour = 'black',#中间网格线颜色
+            gridline.max.colour = 'black',#最外圈网格线颜色
+            axis.line.colour = "black",#坐标轴颜色
+            axis.label.size =7,#轴标签大小
+            legend.position = 'none',#图例位置
+            legend.title = '',#图例名称
+            legend.text.size = 10,#图例标签大小
+            plot.title = ''#图主标题
+)+
+  theme(plot.title = element_text(size=20,hjust=0.5),
+        axis.text = element_text(size = 12),
+        legend.title = element_text(size=15)  
+  )
+a
+ggsave('.../radar_GPP.png', a, width = 4, height = 4, dpi = 300)

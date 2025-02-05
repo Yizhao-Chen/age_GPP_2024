@@ -1,0 +1,39 @@
+library(ggplot2)
+data_analyse= read.csv('...Fig4/Site_Dataset.csv')
+data_analyse2<- data_analyse
+data_analyse <- data_analyse[which(data_analyse$IGBP == 'Evergreen'), ]
+data_analyse2<- data_analyse2[which(data_analyse2$IGBP == 'Deciduous'), ]
+Fig4_a <- ggplot() +
+  geom_point(data = data_analyse, aes(x = log10(Age), y = log10(CN),shape = 'a'), color = "#1E90FF", size = 2, alpha = 0.6) +
+  geom_point(data = data_analyse2, aes(x = log10(Age), y = log10(CN),shape = 'b'), color = "#104E8B", size = 2, alpha = 0.6) +
+  stat_smooth(data = data_analyse, aes(x = log10(Age), y = log10(CN), color = "a", fill = "a"), size = 1.3, se = TRUE, alpha = 0.5,method = 'lm') +
+  stat_smooth(data = data_analyse2, aes(x = log10(Age), y = log10(CN), color = "b", fill = "b"), size = 1.3, se = TRUE, alpha = 0.5,method = 'lm') +
+  labs(
+    x = expression("log10(Stand Age)"),
+    y = expression("log10(Soil C:N)"),
+    title = ''
+  ) +
+  theme_bw() + 
+  scale_colour_manual(name = "", values = c("a" = "#1E90FF", "b" = "#104E8B"), 
+                      labels = c(expression("Site-Ever"), expression("Site-Deci")))+ 
+  scale_fill_manual(name = "", values = c("a" = "#1E90FF", "b" = "#104E8B"), 
+                    labels = c(expression("Site-Ever"), expression("Site-Deci")))+
+  scale_shape_manual(name = "", values = c("a" = 2, "b" = 16),
+                     labels = c(expression("Ever"), expression("Deci")))+
+  theme(
+    axis.text = element_text(size = 18, color = "black"),
+    axis.title.x = element_text(size = 18, color = "black"),
+    axis.title.y = element_text(size = 18),
+    legend.title = element_blank(),
+    legend.text = element_text(size = 15),
+    panel.border = element_rect(fill = NA, color = "black", size = 2, linetype = "solid"),
+    plot.title = element_text(hjust = 0.5, size = 18),	
+  legend.position = c(0.05, 0.05), 
+  legend.justification = c(0, 0), 
+  legend.spacing = unit(0.05, "cm"),
+  legend.direction = "horizontal",  
+  legend.box = "horizontal"  
+)
+  ) 
+Fig3_a
+ggsave('...Fig4/Fig4_a.png', Fig4_a, width = 4, height = 4, dpi = 300)

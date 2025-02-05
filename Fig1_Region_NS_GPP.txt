@@ -1,0 +1,27 @@
+data_analyse = read.csv('...Fig1/Region_NS.csv')
+data_analyse$Region = factor(data_analyse$Region,levels = c('N','S'))
+data_analyse$Source = factor(data_analyse$Source,levels = c('EBF','DBF','ENF','DNF'))
+p  = ggplot() +
+  facet_wrap(~ Region, scales = "free_y",nrow = 1, strip.position = "right") +
+  geom_ribbon(data=data_analyse,aes(x=Age_Group, ymin = fun1-ci, ymax = fun1+ci, fill =Source),alpha = 0.2, show.legend = FALSE)+
+  geom_line(data=data_analyse,aes(x=Age_Group, y = fun1, color=Source),size = 1.2, linetype = 'solid') +
+  scale_color_manual(values = c("EBF" = "#00798c", "DBF" = "#66a182", "ENF" = "#edae49", "DNF" = "#d1495b"))+
+  scale_fill_manual(values = c("EBF" = "#00798c", "DBF" = "#66a182", "ENF" = "#edae49", "DNF" = "#d1495b"))+
+  scale_x_continuous(limits = c(0, 170), breaks = c(50,100,150)) +
+  theme_bw() +
+  theme(
+    axis.text = element_text(size = 18),
+    axis.text.x = element_text(size = 18),
+    axis.text.y = element_text(size = 18),
+    axis.title.x = element_text(size = 18),
+    axis.title.y = element_text(size = 18),
+    panel.border = element_rect(fill = NA, color = "black", size = 2, linetype = "solid"),
+    plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16),
+    legend.position = 'none',
+    legend.direction = "horizontal",
+    strip.text.y = element_text(size = 20),
+    strip.text.x = element_text(size = 20)
+  ) 
+ggsave('...Fig1/Region_NS_GPP.png', p, width = 10, height = 4, dpi = 300)
